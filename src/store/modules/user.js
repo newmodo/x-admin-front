@@ -8,7 +8,7 @@ const state = {
   avatar: '',
   introduction: '',
   roles: [],
-  system:''
+  system: ''
 }
 
 const mutations = {
@@ -59,7 +59,7 @@ const actions = {
         }
 
         const { roles, name, avatar, introduction, system } = data
-
+        console.log(data)
         // roles must be a non-empty array
         if (!roles || roles.length <= 0) {
           reject('getInfo: roles must be a non-null array!')

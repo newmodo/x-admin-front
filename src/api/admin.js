@@ -10,8 +10,8 @@ export function fetchList(query) {
 
 export function fetchAdmin(id) {
   return request({
-    url: '/admin/'+id,
-    method: 'get',
+    url: '/admin/' + id,
+    method: 'get'
   })
 }
 
