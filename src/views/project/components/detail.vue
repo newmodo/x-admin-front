@@ -6,42 +6,49 @@
           <div class="postInfo-container">
             <el-row>
               <el-col :span="12">
-                <el-form-item label-width="120px" label="项目名称:" prop="name">
+                <el-form-item label-width="120px" label="项目名称:" prop="project_name">
                   <el-input v-model="postForm.project_name" />
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="12">
-                <el-form-item label-width="120px" label="环境:" prop="name_it">
-                  <el-input v-model="postForm.env" />
+                <el-form-item label-width="120px" label="环境:" prop="env">
+                  <el-select v-model="postForm.env">
+                    <el-option
+                      v-for="(item) in envMap"
+                      :key="item.key"
+                      :label="item.text"
+                      :value="item.key"
+                    />
+                  </el-select>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="12">
-                <el-form-item label-width="120px" label="所属组织:" prop="price">
+                <el-form-item label-width="120px" label="所属组织:" prop="o_id">
                   <el-input v-model="postForm.o_id" />
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="12">
-                <el-form-item label-width="120px" label="上传路径:" prop="discount">
+                <el-form-item label-width="120px" label="上传路径:" prop="path">
                   <el-input v-model="postForm.path" />
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="12">
-                <el-form-item label-width="120px" label="代码仓库:" prop="discount">
+                <el-form-item label-width="120px" label="代码仓库:" prop="git">
                   <el-input v-model="postForm.git" />
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="12">
-                <el-form-item label-width="120px" label="代码分支" prop="category">
+                <el-form-item label-width="120px" label="代码分支" prop="git_branch">
                   <el-select v-model="postForm.git_branch">
                     <el-option
                       v-for="(item) in cateMap"
@@ -68,6 +75,11 @@ import { addItem } from '@/api/project'
 
 const defaultForm = {
   imgs: '',
+  env: {
+    type: Number,
+    default: 1
+  },
+  o_id: 1,
   password: ''
 }
 
@@ -84,6 +96,7 @@ export default {
       postForm: Object.assign({}, defaultForm),
       loading: false,
       cateMap: [{ key: 'master', text: 'master' }],
+      envMap: [{ key: 1, text: 'test' }, { key: 2, text: 'pre' }, { key: 3, text: 'product' }],
       roles: [],
       rules: {},
       tempRoute: {}

@@ -13,34 +13,24 @@
           <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="菜名">
+      <el-table-column align="center" label="项目名称">
         <template slot-scope="scope">
-          <span>{{ scope.row.name }}</span>
+          <span>{{ scope.row.project_name }}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="价格">
+      <el-table-column align="center" label="环境">
         <template slot-scope="scope">
-          <span>{{ scope.row.price }}</span>
+          <span>{{ scope.row.env }}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="折扣">
+      <el-table-column align="center" label="Git">
         <template slot-scope="scope">
-          <span>{{ scope.row.discount }}</span>
+          <span>{{ scope.row.git }}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="频次">
+      <el-table-column align="center" label="路径">
         <template slot-scope="scope">
-          <span>{{ scope.row.freq }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="状态">
-        <template slot-scope="scope">
-          <span>{{ scope.row.status }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="类型">
-        <template slot-scope="scope">
-          <span>{{ scope.row.category }}</span>
+          <span>{{ scope.row.path }}</span>
         </template>
       </el-table-column>
       <el-table-column align="center" label="创建时间">
@@ -50,7 +40,7 @@
       </el-table-column>
       <el-table-column align="center" label="Actions" width="120">
         <template slot-scope="scope">
-          <router-link :to="'/dish/edit/'+scope.row.id">
+          <router-link :to="'/project/edit/'+scope.row.id">
             <el-button type="primary" size="small" icon="el-icon-edit">修改</el-button>
           </router-link>
         </template>
