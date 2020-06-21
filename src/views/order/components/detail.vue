@@ -7,28 +7,28 @@
             <el-row>
               <el-col :span="12">
                 <el-form-item label-width="120px" label="中文名:" prop="name">
-                  <el-input v-model="postForm.name"></el-input>
+                  <el-input v-model="postForm.name" />
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="12">
                 <el-form-item label-width="120px" label="外文名:" prop="name_it">
-                  <el-input v-model="postForm.name_it"></el-input>
+                  <el-input v-model="postForm.name_it" />
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="12">
                 <el-form-item label-width="120px" label="价格:" prop="price">
-                  <el-input v-model="postForm.price"></el-input>
+                  <el-input v-model="postForm.price" />
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="12">
                 <el-form-item label-width="120px" label="折扣:" prop="discount">
-                  <el-input v-model="postForm.discount"></el-input>
+                  <el-input v-model="postForm.discount" />
                 </el-form-item>
               </el-col>
             </el-row>
@@ -64,17 +64,17 @@
               <el-col :span="24">
                 <el-form-item label-width="120px" label="图片">
                   <dropzone
-                    ref="dropzone"
                     id="myVueDropzone"
+                    ref="dropzone"
                     url="http://192.168.112.20:9501/common/upload"
                     @dropzone-removedFile="dropzoneR"
                     @dropzone-success="dropzoneS"
                   />
-                  <input id="imgs" type="hidden" v-model="postForm.imgs" pro="imgs" />
+                  <input id="imgs" v-model="postForm.imgs" type="hidden" pro="imgs">
                 </el-form-item>
               </el-col>
             </el-row>
-            <el-button type="primary" @click="submitForm">{{this.buttonName}}</el-button>
+            <el-button type="primary" @click="submitForm">{{ this.buttonName }}</el-button>
           </div>
         </el-col>
       </div>
@@ -84,18 +84,18 @@
 </template>
 
 <script>
-import Dropzone from "@/components/Dropzone";
-import { fetchItem } from "@/api/dish";
-import { updateItem } from "@/api/dish";
-import { addItem } from "@/api/dish";
+import Dropzone from '@/components/Dropzone'
+// import { fetchItem } from "@/api/dish";
+// import { updateItem } from "@/api/dish";
+// import { addItem } from "@/api/dish";
 
 const defaultForm = {
-  imgs: "",
-  password: ""
-};
+  imgs: '',
+  password: ''
+}
 
 export default {
-  name: "Detail",
+  name: 'Detail',
   components: {
     Dropzone
   },
@@ -114,101 +114,100 @@ export default {
       roles: [],
       rules: {},
       tempRoute: {}
-    };
+    }
   },
   created() {
     if (this.isEdit) {
-      const id = this.$route.params && this.$route.params.id;
-      this.buttonName = "编辑";
-      this.fetchData(id);
+      const id = this.$route.params && this.$route.params.id
+      this.buttonName = '编辑'
+      this.fetchData(id)
     } else {
-      this.buttonName = "创建";
-      this.postForm = Object.assign({}, defaultForm);
+      this.buttonName = '创建'
+      this.postForm = Object.assign({}, defaultForm)
     }
-    this.tempRoute = Object.assign({}, this.$route);
-
+    this.tempRoute = Object.assign({}, this.$route)
   },
   methods: {
     insertImg(url) {
-      var imgs = this.postForm.imgs;
-      var list = [];
-      list = imgs.split(",");
-      list.push(url);
-      this.postForm.imgs = list.join(",").trim(",");
+      var imgs = this.postForm.imgs
+      var list = []
+      list = imgs.split(',')
+      list.push(url)
+      this.postForm.imgs = list.join(',').trim(',')
     },
     deleteImg(url) {
-      var imgs = this.postForm.imgs;
-      var list = [];
-      list = imgs.split(",");
-      list.splice(array.findIndex(item => item === url), 1);
-      this.postForm.imgs = list.join(",").trim(",");
+      var imgs = this.postForm.imgs
+      var list = []
+      list = imgs.split(',')
+      list.splice(array.findIndex(item => item === url), 1)
+      this.postForm.imgs = list.join(',').trim(',')
     },
     initImgs() {
-      var list = this.postForm.imgs.split(",");
-      console.log(this.$refs.dropzone);
-      this.$refs.dropzone.initImages(list);
+      var list = this.postForm.imgs.split(',')
+      console.log(this.$refs.dropzone)
+      this.$refs.dropzone.initImages(list)
     },
     dropzoneS(file, x, xhr) {
-      console.log(xhr);
-      this.insertImg(xhr.data.url);
-      this.$message({ message: "Upload success", type: "success" });
+      console.log(xhr)
+      this.insertImg(xhr.data.url)
+      this.$message({ message: 'Upload success', type: 'success' })
     },
     dropzoneR(file, x, xhr) {
-      this.deleteImg(xhr.data.url);
-      this.$message({ message: "Delete success", type: "success" });
+      this.deleteImg(xhr.data.url)
+      this.$message({ message: 'Delete success', type: 'success' })
     },
     fetchData(id) {
       fetchItem(id)
         .then(response => {
-          this.postForm = response.data;
-          this.setPageTitle();
-          this.initImgs();
+          this.postForm = response.data
+          this.setPageTitle()
+          this.initImgs()
         })
         .catch(err => {
-          console.log(err);
-        });
+          console.log(err)
+        })
     },
     setPageTitle() {
       if (this.isEdit) {
-        const title = "编辑";
-        document.title = `${title} - ${this.postForm.username}`;
+        const title = '编辑'
+        document.title = `${title} - ${this.postForm.username}`
       } else {
-        const title = "创建管理员";
-        document.title = `${title}`;
+        const title = '创建管理员'
+        document.title = `${title}`
       }
     },
     submitForm() {
       this.$refs.postForm.validate(valid => {
         if (valid) {
-          this.loading = true;
+          this.loading = true
           if (this.isEdit) {
             updateItem(this.postForm).then(() => {
               this.$notify({
-                title: "Success",
-                message: "更新成功",
-                type: "success",
+                title: 'Success',
+                message: '更新成功',
+                type: 'success',
                 duration: 2000
-              });
-            });
+              })
+            })
           } else {
             addItem(this.postForm).then(() => {
               this.$notify({
-                title: "Success",
-                message: "创建成功",
-                type: "success",
+                title: 'Success',
+                message: '创建成功',
+                type: 'success',
                 duration: 2000
-              });
-            });
+              })
+            })
           }
-          this.loading = false;
+          this.loading = false
         } else {
-          console.log("error submit!!");
-          return false;
+          console.log('error submit!!')
+          return false
         }
-      });
+      })
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

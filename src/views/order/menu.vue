@@ -1,16 +1,16 @@
 <template>
   <div class="menu">
     <el-row>
-    <template>
-      <el-select v-model="table_id" filterable placeholder="请选择" style="margin-bottom: 10px;" ref="selection">
-        <el-option
-          v-for="item in options"
-          :key="item.key"
-          :label="item.text"
-          :value="item.key">
-        </el-option>
-      </el-select>
-    </template>
+      <template>
+        <el-select ref="selection" v-model="table_id" filterable placeholder="请选择" style="margin-bottom: 10px;">
+          <el-option
+            v-for="item in options"
+            :key="item.key"
+            :label="item.text"
+            :value="item.key"
+          />
+        </el-select>
+      </template>
     </el-row>
     <el-row>
       <el-col v-for="(item,key,index) in list" :key="index" :span="span">
@@ -70,7 +70,6 @@
 </style>
 
 <script>
-import { fetchList } from '@/api/dish'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -88,8 +87,8 @@ export default {
         page: 1,
         limit: 20
       },
-      options:{},
-      table_id:''
+      options: {},
+      table_id: ''
     }
   },
   computed: {
@@ -113,20 +112,20 @@ export default {
     // 加入购物车
     addToCart(product) {
       if (!this.table_id) {
-        const h = this.$createElement;
+        const h = this.$createElement
         this.$message({
           message: h('p', null, [
             h('span', null, '请选择餐桌 '),
             h('i', { style: 'color: teal' })
           ]),
           type: 'warning'
-        });
+        })
         return
       }
-      product.table_id=this.table_id
-      product.table_name=this.$refs.selection.selectedLabel
+      product.table_id = this.table_id
+      product.table_name = this.$refs.selection.selectedLabel
       this.$store.dispatch('cart/addToCart', product)
-    },
+    }
   }
 }
 </script>

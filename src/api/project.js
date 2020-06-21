@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function fetchList(query) {
   return request({
-    url: '/dishes/list',
+    url: '/project/list',
     method: 'get',
     params: query
   })
@@ -10,22 +10,22 @@ export function fetchList(query) {
 
 export function fetchItem(id) {
   return request({
-    url: '/dishes/'+id,
-    method: 'get',
+    url: '/project/' + id,
+    method: 'get'
   })
 }
 
 export function addItem(data) {
   return request({
-    url: '/dishes/create',
-    method: 'post',
+    url: '/project/',
+    method: 'put',
     data
   })
 }
 
 export function updateItem(data) {
   return request({
-    url: '/dishes/update',
+    url: '/project/',
     method: 'post',
     data
   })
