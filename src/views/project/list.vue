@@ -43,6 +43,9 @@
           <router-link :to="'/project/edit/'+scope.row.id">
             <el-button type="primary" size="small" icon="el-icon-edit">修改</el-button>
           </router-link>
+          <router-link :to="'/project/publish/'+scope.row.id">
+            <el-button type="primary" size="small" icon="el-icon-edit">发布</el-button>
+          </router-link>
         </template>
       </el-table-column>
     </el-table>

@@ -26,6 +26,13 @@ const adminRouter = {
       hidden: true
     },
     {
+      path: 'publish/:id(\\d+)',
+      component: () => import('@/views/project/publish'),
+      name: '代码发布',
+      meta: { title: '代码发布', noCache: true, activeMenu: '/project/list' },
+      hidden: true
+    },
+    {
       path: 'list',
       component: () => import('@/views/project/list'),
       name: '项目列表',

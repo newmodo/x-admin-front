@@ -30,3 +30,18 @@ export function updateItem(data) {
     data
   })
 }
+
+export function fetchVersion(id) {
+  return request({
+    url: '/projects/version/' + id,
+    method: 'get'
+  })
+}
+
+export function publishVersion(data) {
+  return request({
+    url: '/vsersion/',
+    method: 'put',
+    data
+  })
+}
