@@ -232,6 +232,7 @@ export default {
           console.log(err)
         })
     },
+
     createCompare() {
       if (this.postForm.from && this.postForm.to) {
         this.postForm.version_name = this.postForm.from + '-' + this.postForm.to
