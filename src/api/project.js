@@ -45,3 +45,11 @@ export function publishVersion(data) {
     data
   })
 }
+
+export function fetchLogList(query) {
+  return request({
+    url: '/versions',
+    method: 'get',
+    params: query
+  })
+}

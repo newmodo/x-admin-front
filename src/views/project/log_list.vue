@@ -10,45 +10,22 @@
     >
       <el-table-column align="center" label="ID" width="80">
         <template slot-scope="scope">
-          <span>{{ scope.row.id }}</span>
+          <span>{{ scope.row.ID }}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="项目名称">
+      <el-table-column align="center" label="原始版本">
         <template slot-scope="scope">
-          <span>{{ scope.row.project_name }}</span>
+          <span>{{ scope.row.from }}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="环境">
+      <el-table-column align="center" label="新版本">
         <template slot-scope="scope">
-          <span>{{ scope.row.env }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="Git">
-        <template slot-scope="scope">
-          <span>{{ scope.row.git }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="路径">
-        <template slot-scope="scope">
-          <span>{{ scope.row.path }}</span>
+          <span>{{ scope.row.to }}</span>
         </template>
       </el-table-column>
       <el-table-column align="center" label="创建时间">
         <template slot-scope="scope">
           <span>{{ scope.row.created_at }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="Actions" width="120">
-        <template slot-scope="scope">
-          <router-link :to="'/project/edit/'+scope.row.id">
-            <el-button type="primary" size="small" icon="el-icon-edit">修改</el-button>
-          </router-link>
-          <router-link :to="'/project/publish/'+scope.row.id">
-            <el-button type="primary" size="small" icon="el-icon-edit">发布</el-button>
-          </router-link>
-          <router-link :to="'/project/publish_log/'+scope.row.id">
-            <el-button type="primary" size="small" icon="el-icon-edit">历史</el-button>
-          </router-link>
         </template>
       </el-table-column>
     </el-table>
@@ -64,11 +41,11 @@
 </template>
 
 <script>
-import { fetchList } from '@/api/project'
+import { fetchLogList } from '@/api/project'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 
 export default {
-  name: 'ArticleList',
+  name: 'LogList',
   components: { Pagination },
   filters: {
     statusFilter(status) {
@@ -87,18 +64,21 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        limit: 20
+        limit: 20,
+        project_id: 1
       }
     }
   },
   created() {
-    this.getList()
+    const id = this.$route.params && this.$route.params.id
+    this.getList(id)
   },
   methods: {
-    getList() {
+    getList(id) {
       this.listLoading = true
-      fetchList(this.listQuery).then(response => {
-        this.list = response.data.items
+      this.listQuery.project_id = id
+      fetchLogList(this.listQuery).then(response => {
+        this.list = response.data.list
         this.total = response.data.total
         this.listLoading = false
       })
@@ -111,6 +91,7 @@ export default {
 .edit-input {
   padding-right: 100px;
 }
+
 .cancel-btn {
   position: absolute;
   right: 15px;

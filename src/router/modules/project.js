@@ -33,6 +33,13 @@ const adminRouter = {
       hidden: true
     },
     {
+      path: 'publish_log/:id(\\d+)',
+      component: () => import('@/views/project/log_list'),
+      name: '发布历史',
+      meta: { title: '发布历史', noCache: true, activeMenu: '/project/list' },
+      hidden: true
+    },
+    {
       path: 'list',
       component: () => import('@/views/project/list'),
       name: '项目列表',
